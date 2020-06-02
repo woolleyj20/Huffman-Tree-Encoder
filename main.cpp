@@ -4,6 +4,7 @@
 
 #include "FrequencyElement.h"
 #include "FrequencyTable.h"
+#include "HuffmanTree.h"
 
 #include <string>
 #include <list>
@@ -14,10 +15,9 @@
 
 using namespace std;
 
-
 int main() {
     ifstream stream;
-    FrequencyTable table;
+    FrequencyTable* table = new FrequencyTable();
 
     cout << "Please input file name: " << endl;
     string file;
@@ -33,17 +33,41 @@ int main() {
             char character = stream.get();
             string label(1, character);
 
+            if (label == "\n") {
+                label = "CR";
+            }
+            if (label == "\377") {
+                break;
+            }
+
             FrequencyElement* element = new FrequencyElement(label);
-            table.InsertElement(element);
+            table->InsertElement(element);
         }
     }
 
-    table.Sort();
+    table->Sort();
 
-    cout << "a" << endl;
+    FrequencyTable* copy = new FrequencyTable(table);
 
+    HuffmanTree* tree = new HuffmanTree(copy);
 
+    tree->SetCodes(table);
 
+    ofstream output;
 
+    cout << "Please input file name: " << endl;
+    string outputFile;
+    getline(cin, outputFile);
+
+    output.open(outputFile);
+
+    if (!output.is_open()) {
+        cout << "Could not open output file: " << outputFile << endl;
+    }
+    else {
+        output << table->PrintTableWithCodes();
+
+        output.close();
+    }
 }
 

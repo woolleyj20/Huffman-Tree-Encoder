@@ -5,8 +5,9 @@
 #ifndef HUFFMAN_WOOLLEYJ20_FREQUENCYELEMENT_H
 #define HUFFMAN_WOOLLEYJ20_FREQUENCYELEMENT_H
 
+#include <string>
 
-#include "object.h"
+using namespace std;
 
 class FrequencyElement {
     string _label;
@@ -14,6 +15,8 @@ class FrequencyElement {
     string _code;
 public:
     FrequencyElement(const string& label);
+    FrequencyElement(const string& label, const size_t& count);
+
     string GetLabel() const;
     size_t GetCount() const;
     string GetCode() const;

@@ -14,12 +14,19 @@ using namespace std;
 class FrequencyTable {
     vector<FrequencyElement*> _data;
 public:
+    FrequencyTable();
     ~FrequencyTable();
-    int Find(const FrequencyElement* key);
+    FrequencyTable(FrequencyTable* table);
+    size_t Size();
+    int Find(const string& key);
+    FrequencyElement* ReturnElement(size_t& position);
     void InsertElement(FrequencyElement* element);
     void InsertElementSorted(FrequencyElement* element);
     FrequencyElement* RemoveElement();
     void Sort();
+    string PrintTableWithCodes();
+    string PrintTableWithFrequencies();
+    void WriteEncodedFile(ifstream& input, ofstream& output);
 };
 
 

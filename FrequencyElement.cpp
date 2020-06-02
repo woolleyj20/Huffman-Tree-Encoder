@@ -27,20 +27,7 @@ void FrequencyElement::SetCode(const string& code) {
 }
 
 bool FrequencyElement::operator>(const FrequencyElement& rhs) const{
-    if (*this == rhs){
-        return false;
-    }
-
-    if (this->GetCount() > rhs.GetCount()) {
-        return true;
-    }
-    else if (this->GetCount() < rhs.GetCount()) {
-        return false;
-    }
-
-    else {
-        return this->GetLabel() > rhs.GetLabel();
-    }
+    return this->GetCount() > rhs.GetCount();
 }
 
 bool FrequencyElement::operator<(const FrequencyElement& rhs) const {
@@ -54,5 +41,7 @@ bool FrequencyElement::operator==(const FrequencyElement& rhs) const {
 bool FrequencyElement::operator!=(const FrequencyElement& rhs) const {
     return !(*this == rhs);
 }
+
+FrequencyElement::FrequencyElement(const string& label, const size_t& count) : _label(label), _count(count), _code(""){}
 
 
