@@ -23,25 +23,22 @@ int main(int argc, char* argv[]) {
 
 
 
-//    input.open(argv[0]);
+    input.open(argv[1]);
 
-    cout << "Enter file in: " << endl;
-    string in;
-    getline(cin, in);
-
-    input.open(in);
+//    cout << "Enter file in: " << endl;
+//    string in;
+//    getline(cin, in);
+//
+//    input.open(in);
 
     if (!input.is_open()) {
-        cout << "Could not open file: " << in << endl;
+        cout << "Could not open file: " << argv[1] << endl;
     }
     else {
         while (!input.eof()) {
             char character = input.get();
             string label(1, character);
 
-            if (label == "\n") {
-                label = "CR";
-            }
             if (label == "\377") {
                 break;
             }
@@ -65,23 +62,23 @@ int main(int argc, char* argv[]) {
 
     ofstream output;
 
-//    output.open(argv[1]);
+    output.open(argv[2]);
 
-    cout << "Enter file out: " << endl;
-    string out;
-    getline(cin, out);
+//    cout << "Enter file out: " << endl;
+//    string out;
+//    getline(cin, out);
 
-    output.open(out);
+//    output.open(out);
 
-    input.open(in);
+    input.open(argv[1]);
 
 
     if (!output.is_open()) {
-        cout << "Could not open output file: " << out << endl;
+        cout << "Could not open output file: " << argv[2] << endl;
     }
     else {
         if (!input.is_open()) {
-            cout << "Could not open in file: " << in << endl;
+            cout << "Could not open in file: " << argv[1] << endl;
         }
         else {
             table->SortChar();

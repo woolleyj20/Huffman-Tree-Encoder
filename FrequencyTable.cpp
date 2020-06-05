@@ -110,10 +110,7 @@ FrequencyTable::FrequencyTable(FrequencyTable* table) {
     _data = newData;
 }
 
-FrequencyElement* FrequencyTable::ReturnElement(int& position) {
-    if (position < 0) {
-        return nullptr;
-    }
+FrequencyElement* FrequencyTable::ReturnElement(size_t& position) {
     return _data[position];
 }
 
@@ -121,9 +118,17 @@ string FrequencyTable::PrintTableWithCodes() {
     stringstream retVal;
 
     for (size_t i = 0; i < _data.size(); i++) {
-        retVal << "{key: "
-        << _data[i]->GetLabel()
-        << ", code: "
+        retVal << "{key: ";
+        if (_data[i]->GetLabel() == "\n") {
+            retVal << "CR";
+        }
+        else if (_data[i]->GetLabel() == "\r") {
+            retVal << "LF";
+        }
+        else {
+            retVal << _data[i]->GetLabel();
+        }
+        retVal << ", code: "
         << _data[i]->GetCode()
         << "}" << endl;
     }
@@ -135,9 +140,17 @@ string FrequencyTable::PrintTableWithFrequencies() {
     stringstream retVal;
 
     for (size_t i = 0; i < _data.size(); i++) {
-        retVal << "{key: "
-               << _data[i]->GetLabel()
-               << ", frequency: "
+        retVal << "{key: ";
+               if (_data[i]->GetLabel() == "\n") {
+                   retVal << "CR";
+               }
+               else if (_data[i]->GetLabel() == "\r") {
+                   retVal << "LF";
+               }
+               else {
+                   retVal << _data[i]->GetLabel();
+               }
+               retVal << ", frequency: "
                << _data[i]->GetCount()
                << "}" << endl;
     }
@@ -150,14 +163,11 @@ void FrequencyTable::WriteEncodedFile(istream& input, ostream& output) {
         char character = input.get();
         string label(1, character);
 
-        if (label == "\n") {
-            label = "CR";
-        }
         if (label == "\377") {
             break;
         }
 
-        int searchResult = BinaryFind(label);
+        size_t searchResult = Find(label);
         FrequencyElement* searchElement = ReturnElement(searchResult);
         output << searchElement->GetCode();
     }
@@ -165,34 +175,6 @@ void FrequencyTable::WriteEncodedFile(istream& input, ostream& output) {
 
 void FrequencyTable::SortChar() {
     sort(_data.begin(), _data.end(), FrequencyElementCompareChar);
-}
-
-int FrequencyTable::BinaryFind(const string& key) {
-    if (_data.size() == 0) {
-        return false;
-    }
-
-    int start = 0;
-    int end = _data.size() - 1;
-    int mid = (start + end) / 2;
-    FrequencyElement* search = nullptr;
-
-    while (end >= start) {
-        search = ReturnElement(mid);
-        if (search->GetLabel() == key) {
-            return mid;
-        }
-        else if (search->GetLabel() > key) {
-            end = mid - 1;
-            mid = (start + end) / 2;
-        }
-        else if (search->GetLabel() < key) {
-            start = mid + 1;
-            mid = (start + end) / 2;
-        }
-    }
-
-    return start;
 }
 
 

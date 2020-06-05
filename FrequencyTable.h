@@ -19,8 +19,7 @@ public:
     FrequencyTable(FrequencyTable* table);
     size_t Size();
     int Find(const string& key);
-    int BinaryFind(const string& key);
-    FrequencyElement* ReturnElement(int& position);
+    FrequencyElement* ReturnElement(size_t& position);
     void InsertElement(FrequencyElement* element);
     void InsertElementSorted(FrequencyElement* element);
     FrequencyElement* RemoveElement();

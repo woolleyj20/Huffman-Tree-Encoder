@@ -87,7 +87,7 @@ string HuffmanTree::GetData() {
 }
 
 void HuffmanTree::SetCodes(FrequencyTable* table) {
-    for (int i = 0; i < table->Size(); i++) {
+    for (size_t i = 0; i < table->Size(); i++) {
         FrequencyElement* toSet = table->ReturnElement(i);
         PullCode(toSet);
     }
