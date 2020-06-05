@@ -8,6 +8,22 @@
 
 using namespace std;
 
+//Helper Functions
+bool FrequencyElementCompare(const FrequencyElement* lhs, const FrequencyElement* rhs) {
+    if (lhs->GetCount() == rhs->GetCount()) {
+        return (lhs->GetLabel() > rhs->GetLabel());
+    }
+    else {
+        return (lhs->GetCount() > rhs->GetCount());
+    }
+}
+
+bool FrequencyElementCompareChar(const FrequencyElement* lhs, const FrequencyElement* rhs) {
+    return lhs->GetLabel() < rhs->GetLabel();
+}
+
+//Member Functions
+
 int FrequencyTable::Find(const string& key) {
     for (size_t i = 0; i < _data.size(); i++) {
         if (_data[i]->GetLabel() == key) {
@@ -58,7 +74,7 @@ void FrequencyTable::Sort() {
 //        }
 //    }
 
-    sort()
+    sort(_data.begin(), _data.end(), FrequencyElementCompare);
 }
 
 void FrequencyTable::InsertElementSorted(FrequencyElement* element) {
@@ -94,7 +110,10 @@ FrequencyTable::FrequencyTable(FrequencyTable* table) {
     _data = newData;
 }
 
-FrequencyElement* FrequencyTable::ReturnElement(size_t& position) {
+FrequencyElement* FrequencyTable::ReturnElement(int& position) {
+    if (position < 0) {
+        return nullptr;
+    }
     return _data[position];
 }
 
@@ -126,9 +145,56 @@ string FrequencyTable::PrintTableWithFrequencies() {
     return retVal.str();
 }
 
-void FrequencyTable::WriteEncodedFile(ifstream& input, ofstream& output) {
-    while
+void FrequencyTable::WriteEncodedFile(istream& input, ostream& output) {
+    while (!input.eof()) {
+        char character = input.get();
+        string label(1, character);
+
+        if (label == "\n") {
+            label = "CR";
+        }
+        if (label == "\377") {
+            break;
+        }
+
+        int searchResult = BinaryFind(label);
+        FrequencyElement* searchElement = ReturnElement(searchResult);
+        output << searchElement->GetCode();
+    }
 }
+
+void FrequencyTable::SortChar() {
+    sort(_data.begin(), _data.end(), FrequencyElementCompareChar);
+}
+
+int FrequencyTable::BinaryFind(const string& key) {
+    if (_data.size() == 0) {
+        return false;
+    }
+
+    int start = 0;
+    int end = _data.size() - 1;
+    int mid = (start + end) / 2;
+    FrequencyElement* search = nullptr;
+
+    while (end >= start) {
+        search = ReturnElement(mid);
+        if (search->GetLabel() == key) {
+            return mid;
+        }
+        else if (search->GetLabel() > key) {
+            end = mid - 1;
+            mid = (start + end) / 2;
+        }
+        else if (search->GetLabel() < key) {
+            start = mid + 1;
+            mid = (start + end) / 2;
+        }
+    }
+
+    return start;
+}
+
 
 
 

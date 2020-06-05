@@ -45,3 +45,5 @@ bool FrequencyElement::operator!=(const FrequencyElement& rhs) const {
 FrequencyElement::FrequencyElement(const string& label, const size_t& count) : _label(label), _count(count), _code(""){}
 
 
+
+

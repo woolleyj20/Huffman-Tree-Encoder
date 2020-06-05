@@ -20,6 +20,8 @@ class HuffmanTree {
 
     void MergeTrees(HuffmanTree* a, HuffmanTree* b);
     HuffmanTree();
+    ~HuffmanTree();
+    void Clear();
 
 
     void PullCode(FrequencyElement* element);

@@ -15,22 +15,28 @@
 
 using namespace std;
 
-int main() {
-    ifstream stream;
+
+
+int main(int argc, char* argv[]) {
+    ifstream input;
     FrequencyTable* table = new FrequencyTable();
 
-    cout << "Please input file name: " << endl;
-    string file;
-    getline(cin, file);
 
-    stream.open(file);
 
-    if (!stream.is_open()) {
-        cout << "Could not open file: " << file << endl;
+//    input.open(argv[0]);
+
+    cout << "Enter file in: " << endl;
+    string in;
+    getline(cin, in);
+
+    input.open(in);
+
+    if (!input.is_open()) {
+        cout << "Could not open file: " << in << endl;
     }
     else {
-        while (!stream.eof()) {
-            char character = stream.get();
+        while (!input.eof()) {
+            char character = input.get();
             string label(1, character);
 
             if (label == "\n") {
@@ -45,6 +51,8 @@ int main() {
         }
     }
 
+    input.close();
+
     table->Sort();
 
     FrequencyTable* copy = new FrequencyTable(table);
@@ -53,21 +61,34 @@ int main() {
 
     tree->SetCodes(table);
 
+    cout << table->PrintTableWithCodes() << endl;
+
     ofstream output;
 
-    cout << "Please input file name: " << endl;
-    string outputFile;
-    getline(cin, outputFile);
+//    output.open(argv[1]);
 
-    output.open(outputFile);
+    cout << "Enter file out: " << endl;
+    string out;
+    getline(cin, out);
+
+    output.open(out);
+
+    input.open(in);
+
 
     if (!output.is_open()) {
-        cout << "Could not open output file: " << outputFile << endl;
+        cout << "Could not open output file: " << out << endl;
     }
     else {
-        output << table->PrintTableWithCodes();
-
-        output.close();
+        if (!input.is_open()) {
+            cout << "Could not open in file: " << in << endl;
+        }
+        else {
+            table->SortChar();
+            table->WriteEncodedFile(input, output);
+        }
     }
 }
+
+
 

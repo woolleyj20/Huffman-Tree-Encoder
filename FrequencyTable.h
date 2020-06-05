@@ -19,14 +19,16 @@ public:
     FrequencyTable(FrequencyTable* table);
     size_t Size();
     int Find(const string& key);
-    FrequencyElement* ReturnElement(size_t& position);
+    int BinaryFind(const string& key);
+    FrequencyElement* ReturnElement(int& position);
     void InsertElement(FrequencyElement* element);
     void InsertElementSorted(FrequencyElement* element);
     FrequencyElement* RemoveElement();
     void Sort();
+    void SortChar();
     string PrintTableWithCodes();
     string PrintTableWithFrequencies();
-    void WriteEncodedFile(ifstream& input, ofstream& output);
+    void WriteEncodedFile(istream& input, ostream& output);
 };
 
 

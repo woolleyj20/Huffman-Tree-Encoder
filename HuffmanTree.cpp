@@ -30,10 +30,13 @@ HuffmanTree* PullForTree(FrequencyTable* table, vector<HuffmanTree*> vector) {
     }
     else {
         tree = new HuffmanTree(label, count);
+        vector.push_back(tree);
     }
 
     return tree;
 }
+
+
 
 //Member Functions
 void HuffmanTree::MergeTrees(HuffmanTree* a, HuffmanTree* b) {
@@ -84,7 +87,7 @@ string HuffmanTree::GetData() {
 }
 
 void HuffmanTree::SetCodes(FrequencyTable* table) {
-    for (size_t i = 0; i < table->Size(); i++) {
+    for (int i = 0; i < table->Size(); i++) {
         FrequencyElement* toSet = table->ReturnElement(i);
         PullCode(toSet);
     }
@@ -111,4 +114,20 @@ void HuffmanTree::PullCode(FrequencyElement* element){
     }
 
     element->SetCode(code);
+}
+
+HuffmanTree::~HuffmanTree() {
+    this->Clear();
+}
+
+void HuffmanTree::Clear() {
+    if (_leftChild) {
+        _leftChild->Clear();
+        _leftChild = nullptr;
+    }
+    if (_rightChild) {
+        _rightChild->Clear();
+        _rightChild = nullptr;
+    }
+    delete this;
 }
