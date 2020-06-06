@@ -117,17 +117,19 @@ void HuffmanTree::PullCode(FrequencyElement* element){
 }
 
 HuffmanTree::~HuffmanTree() {
-    this->Clear();
+   Clear();
 }
 
 void HuffmanTree::Clear() {
     if (_leftChild) {
         _leftChild->Clear();
+        delete _leftChild;
         _leftChild = nullptr;
     }
     if (_rightChild) {
         _rightChild->Clear();
+        delete _rightChild;
         _rightChild = nullptr;
     }
-    delete this;
+
 }

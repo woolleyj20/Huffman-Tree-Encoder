@@ -20,14 +20,14 @@ class HuffmanTree {
 
     void MergeTrees(HuffmanTree* a, HuffmanTree* b);
     HuffmanTree();
-    ~HuffmanTree();
+
     void Clear();
 
 
     void PullCode(FrequencyElement* element);
 public:
     HuffmanTree(FrequencyTable* toRead);
-
+    ~HuffmanTree();
     void SetCodes(FrequencyTable* table);
     HuffmanTree(string& data, size_t& count);
     string GetData();

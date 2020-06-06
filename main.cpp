@@ -23,16 +23,16 @@ int main(int argc, char* argv[]) {
 
 
 
-    input.open(argv[1]);
+//    input.open(argv[1]);
 
-//    cout << "Enter file in: " << endl;
-//    string in;
-//    getline(cin, in);
-//
-//    input.open(in);
+    cout << "Enter file in: " << endl;
+    string in;
+    getline(cin, in);
+
+    input.open(in);
 
     if (!input.is_open()) {
-        cout << "Could not open file: " << argv[1] << endl;
+        cout << "Could not open file: " << in << endl;
     }
     else {
         while (!input.eof()) {
@@ -62,29 +62,39 @@ int main(int argc, char* argv[]) {
 
     ofstream output;
 
-    output.open(argv[2]);
+//    output.open(argv[2]);
+//    input.open(argv[1]);
 
-//    cout << "Enter file out: " << endl;
-//    string out;
-//    getline(cin, out);
+    cout << "Enter file out: " << endl;
+    string out;
+    getline(cin, out);
 
-//    output.open(out);
+    output.open(out);
 
-    input.open(argv[1]);
+    input.open(in);
+
+
 
 
     if (!output.is_open()) {
-        cout << "Could not open output file: " << argv[2] << endl;
+        cout << "Could not open output file: " << out << endl;
     }
     else {
         if (!input.is_open()) {
-            cout << "Could not open in file: " << argv[1] << endl;
+            cout << "Could not open in file: " << in << endl;
         }
         else {
             table->SortChar();
             table->WriteEncodedFile(input, output);
         }
     }
+
+    input.close();
+    output.close();
+
+    delete table;
+    delete copy;
+    delete tree;
 }
 
 
