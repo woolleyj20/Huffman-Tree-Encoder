@@ -1,6 +1,10 @@
-//
-// Created by rocki on 5/30/2020.
-//
+/*
+ * Filename: main.cpp
+ * Description: Main file that handles the files and calling appropriate functions to encode and decode
+ * Author: Jason Woolley
+ * Date: 6/8/2020
+ * Course: Data Structures II
+ */
 
 #include "FrequencyElement.h"
 #include "FrequencyTable.h"
@@ -25,15 +29,11 @@ int main(int argc, char* argv[]) {
 
         input.open(argv[2]);
 
-//    cout << "Enter file in: " << endl;
-//    string in;
-//    getline(cin, in);
-//
-//    input.open(in);
-
         if (!input.is_open()) {
             cout << "Could not open file: " << argv[2] << endl;
-        } else {
+        }
+        // In this loop, it pulls every character, makes an element from it, and inserts it into the table.
+        else {
             while (!input.eof()) {
                 char character = input.get();
                 string label(1, character);
@@ -49,14 +49,19 @@ int main(int argc, char* argv[]) {
 
         input.close();
 
+        //Sort the table
         table->Sort();
 
+        //Make a copy for making the tree
         FrequencyTable* copy = new FrequencyTable(table);
 
+        //Make a tree!
         HuffmanTree* tree = new HuffmanTree(copy);
 
+        //Set codes in the original from the tree
         tree->SetCodes(table);
 
+        //Output codes
         cout << table->PrintTableWithCodes() << endl;
 
         ofstream output;
@@ -64,24 +69,15 @@ int main(int argc, char* argv[]) {
         output.open(argv[3]);
         input.open(argv[2]);
 
-//    cout << "Enter file out: " << endl;
-//    string out;
-//    getline(cin, out);
-//
-//    output.open(out);
-//
-//    input.open(in);
 
 
-
-
+        // Write the encoded file
         if (!output.is_open()) {
             cout << "Could not open output file: " << argv[3] << endl;
         } else {
             if (!input.is_open()) {
                 cout << "Could not open in file: " << argv[2] << endl;
             } else {
-                table->SortChar();
                 table->WriteEncodedFile(input, output);
             }
         }
@@ -94,6 +90,7 @@ int main(int argc, char* argv[]) {
         delete tree;
     }
     else {
+        //This is just here in case something goes wrong
         cout << "Dummy" << endl;
     }
 }

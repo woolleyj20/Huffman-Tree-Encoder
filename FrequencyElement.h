@@ -1,6 +1,10 @@
-//
-// Created by rocki on 5/31/2020.
-//
+/*
+ * Filename: FrequencyElement
+ * Description: A class for keeping an elements name, frequency, and codes all together easily.
+ * Author: Jason Woolley
+ * Date: 6/8/2020
+ * Course: Data Structures II
+ */
 
 #ifndef HUFFMAN_WOOLLEYJ20_FREQUENCYELEMENT_H
 #define HUFFMAN_WOOLLEYJ20_FREQUENCYELEMENT_H

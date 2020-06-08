@@ -1,6 +1,10 @@
-//
-// Created by rocki on 6/1/2020.
-//
+/*
+ * Filename: HuffmanTree.h
+ * Description: A class for a tree data structure to make a HuffmanTree.
+ * Author: Jason Woolley
+ * Date: 6/8/2020
+ * Course: Data Structures II
+ */
 
 #ifndef HUFFMAN_WOOLLEYJ20_HUFFMANTREE_H
 #define HUFFMAN_WOOLLEYJ20_HUFFMANTREE_H
@@ -20,10 +24,7 @@ class HuffmanTree {
 
     void MergeTrees(HuffmanTree* a, HuffmanTree* b);
     HuffmanTree();
-
     void Clear();
-
-
     void PullCode(FrequencyElement* element);
 public:
     HuffmanTree(FrequencyTable* toRead);
