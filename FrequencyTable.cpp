@@ -9,6 +9,7 @@
 #include "FrequencyTable.h"
 #include <algorithm>
 #include <sstream>
+#include <iomanip>
 
 using namespace std;
 
@@ -126,7 +127,7 @@ string FrequencyTable::PrintTableWithCodes() {
 
     stringstream retVal;
 
-    for (size_t i = 0; i < _data.size(); i++) {
+    for (size_t i = 0; i < _data.size() - 1; i++) {
         retVal << "{key: ";
 
         //The string of "\n" is printed as "CR" so that it isn't actually a newline character
@@ -139,12 +140,30 @@ string FrequencyTable::PrintTableWithCodes() {
             retVal << "LF";
         }
         else {
-            retVal << _data[i]->GetLabel();
+            retVal << " " << _data[i]->GetLabel();
         }
         retVal << ", code: "
         << _data[i]->GetCode()
         << "}" << endl;
     }
+
+    retVal << "{key: ";
+
+    //The string of "\n" is printed as "CR" so that it isn't actually a newline character
+    if (_data[_data.size() - 1]->GetLabel() == "\n") {
+        retVal << "CR";
+    }
+
+        //The string of "\r" is printed as "LF" so that it isn't actually a newline character
+    else if (_data[_data.size() - 1]->GetLabel() == "\r") {
+        retVal << "LF";
+    }
+    else {
+        retVal << " " << _data[_data.size() - 1]->GetLabel();
+    }
+    retVal << ", code: "
+           << _data[_data.size() - 1]->GetCode()
+           << "}";
 
     return retVal.str();
 }
