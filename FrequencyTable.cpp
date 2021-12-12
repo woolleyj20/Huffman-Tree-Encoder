@@ -54,7 +54,7 @@ void FrequencyTable::InsertElement(FrequencyElement* element) {
 }
 
 FrequencyElement* FrequencyTable::RemoveElement() {
-    //This function in only ever used when building the tree.  You only even remove from the bottom (or end), so it's built to only remove the last one.
+    //This function in only ever used when building the tree.  You only ever remove from the bottom (or end), so it's built to only remove the last one.
 
     FrequencyElement* returned = _data[_data.size() - 1];
     _data.pop_back();
@@ -185,8 +185,3 @@ void FrequencyTable::WriteEncodedFile(istream& input, ostream& output) {
         output << searchElement->GetCode();
     }
 }
-
-
-
-
-
